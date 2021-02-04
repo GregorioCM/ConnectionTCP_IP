@@ -24,9 +24,23 @@ void MainWindow::modificarChat(QString _mensaje){
 
 //              Funciones privadas del servidor
 void MainWindow::lanzarServidor(){
-    pMyServer = new QTcpServer();
-    connect(pMyServer, SIGNAL(newConnection()), SLOT(conexionRecibida()));
-    pMyServer->listen(QHostAddress::AnyIPv4, 7100);
+    int puerto = -1;
+    if(pMyServer == nullptr){
+        DialogSeleccionPuerto seleccionPuerto(this);
+        if(seleccionPuerto.exec() == QDialog::Accepted && seleccionPuerto.getPuerto() != -1){
+            puerto = seleccionPuerto.getPuerto();
+        }
+    }
+    if(puerto != -1){
+        pMyServer = new QTcpServer();
+        connect(pMyServer, SIGNAL(newConnection()), SLOT(conexionRecibida()));
+        pMyServer->listen(QHostAddress::AnyIPv4, static_cast<quint16>(puerto));
+    } else {
+        QString mensaje = "Por favor introduzca un puerto para configurar el servidor.";
+        DialogMensajeError mensajeError(this);
+        mensajeError.setMensajeError(mensaje);
+        mensajeError.exec();
+    }
 }
 
 void MainWindow::pararServidor(){

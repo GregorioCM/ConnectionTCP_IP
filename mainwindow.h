@@ -5,7 +5,10 @@
 #include <iostream>
 #include <QString>
 #include <QTcpServer>
+// Mis clases
 #include "mysocket.h"
+#include "dialogseleccionpuerto.h"
+#include "dialogmensajeerror.h"
 
 using namespace std;
 
@@ -33,8 +36,6 @@ private slots:
     void leerMensaje();
     void on_lineEditMessage_returnPressed(){}
     // Acciones de la barra de navegacion
-    void on_actionParar_Hilo_triggered();
-    void on_actionIniciar_Hilo_triggered();
 private:
     Ui::MainWindow *ui;
     bool stopServer;
