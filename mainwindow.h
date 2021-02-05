@@ -5,10 +5,12 @@
 #include <iostream>
 #include <QString>
 #include <QTcpServer>
+#include <QTcpSocket>
+#include <vector>
 // Mis clases
-#include "mysocket.h"
 #include "dialogseleccionpuerto.h"
 #include "dialogmensajeerror.h"
+#include "dialogacceptarconexion.h"
 
 using namespace std;
 
@@ -38,9 +40,8 @@ private slots:
     // Acciones de la barra de navegacion
 private:
     Ui::MainWindow *ui;
-    bool stopServer;
-    //MySocket *pMyServer;
     QTcpServer *pMyServer;
     QTcpSocket *pConexion;
+    vector<QTcpSocket *> conexionesActivas;
 };
 #endif // MAINWINDOW_H

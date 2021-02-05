@@ -6,7 +6,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    stopServer = false;
     pMyServer = nullptr;
     pConexion = nullptr;
     connect(ui->actionLanzarServidor, SIGNAL(triggered()), SLOT(lanzarServidor()));
@@ -49,18 +48,28 @@ void MainWindow::pararServidor(){
 
 void MainWindow::conexionRecibida(){
     pConexion = pMyServer->nextPendingConnection();
-    connect(pConexion, SIGNAL(readyRead()), SLOT(leerMensaje()));
-    connect(pConexion, SIGNAL(disconnected()), SLOT(desconectar()));
-    QHostAddress direcionConexion = pConexion->peerAddress();
-    QString mensajeConexion;
-    if(ui->textBrowserChat->toPlainText() != 0){
-        QString separacion = "\n----------------------------------------------------------------";
-        this->modificarChat(separacion);
-        mensajeConexion = "\nCliente: " + pConexion->peerName() + "\tCon IP: " + direcionConexion.toString();
+    QString datosConexion = "Nueva conexion cuyo nombre es: " + pConexion->peerName() +
+            " con direccion IP: " + pConexion->peerAddress().toString();
+    DialogAcceptarConexion aceptar(nullptr);
+    aceptar.setDatosConexion(datosConexion);
+    if(aceptar.exec() == QDialog::Accepted){
+        connect(pConexion, SIGNAL(readyRead()), this, SLOT(leerMensaje()));
+        connect(pConexion, SIGNAL(disconnected()), this, SLOT(desconectar()));
+        QHostAddress direcionConexion = pConexion->peerAddress();
+        QString mensajeConexion;
+        if(ui->textBrowserChat->toPlainText() != 0){
+            QString separacion = "\n----------------------------------------------------------------";
+            this->modificarChat(separacion);
+            mensajeConexion = "\nCliente: " + pConexion->peerName() + "\tCon IP: " + direcionConexion.toString();
+        } else {
+            mensajeConexion = "Cliente: " + pConexion->peerName() + "\tCon IP: " + direcionConexion.toString();
+        }
+        this->modificarChat(mensajeConexion);
     } else {
-        mensajeConexion = "Cliente: " + pConexion->peerName() + "\tCon IP: " + direcionConexion.toString();
+        pConexion->close();
+        pConexion->deleteLater();
+        pConexion = nullptr;
     }
-    this->modificarChat(mensajeConexion);
 }
 
 void MainWindow::desconectar(){

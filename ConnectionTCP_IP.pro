@@ -10,19 +10,20 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    dialogacceptarconexion.cpp \
     dialogmensajeerror.cpp \
     dialogseleccionpuerto.cpp \
     main.cpp \
-    mainwindow.cpp \
-    mysocket.cpp
+    mainwindow.cpp
 
 HEADERS += \
+    dialogacceptarconexion.h \
     dialogmensajeerror.h \
     dialogseleccionpuerto.h \
-    mainwindow.h \
-    mysocket.h
+    mainwindow.h
 
 FORMS += \
+    dialogacceptarconexion.ui \
     dialogmensajeerror.ui \
     dialogseleccionpuerto.ui \
     mainwindow.ui
