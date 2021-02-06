@@ -63,12 +63,24 @@
     </property>
     <addaction name="actionLanzarServidor"/>
    </widget>
+   <widget class="QMenu" name="menuAudio">
+    <property name="title">
+     <string>Audio</string>
+    </property>
+    <addaction name="actionPasarAudio"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuAudio"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionLanzarServidor">
    <property name="text">
     <string>Lanzar servidor</string>
+   </property>
+  </action>
+  <action name="actionPasarAudio">
+   <property name="text">
+    <string>Pasar a audio</string>
    </property>
   </action>
  </widget>

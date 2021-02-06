@@ -16,6 +16,7 @@ public:
     ~DialogAcceptarConexion();
 
     void setDatosConexion(QString _datos);
+    void setLabelTitulo(QString _titulo);
 private:
     Ui::DialogAcceptarConexion *ui;
 };

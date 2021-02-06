@@ -17,3 +17,7 @@ void DialogAcceptarConexion::setDatosConexion(QString _datos){
     ui->plainTextEditDatos->setStyleSheet("color: black");
     ui->plainTextEditDatos->setPlainText(_datos);
 }
+
+void DialogAcceptarConexion::setLabelTitulo(QString _titulo){
+    ui->labelTitulo->setText(_titulo);
+}
